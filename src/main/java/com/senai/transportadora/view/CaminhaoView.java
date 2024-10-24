@@ -23,7 +23,7 @@ public class CaminhaoView {
             System.out.println("3. Obter Caminhão por ID");
             System.out.println("4. Atualizar Caminhão");
             System.out.println("5. Remover Caminhão");
-            System.out.println("6. Sair");
+            System.out.println("6. Voltar ao Menu Principal");
             System.out.print("Escolha uma opção: ");
 
             int opcao = Integer.parseInt(scanner.nextLine());
@@ -45,7 +45,7 @@ public class CaminhaoView {
                     removerCaminhao();
                     break;
                 case 6:
-                    System.exit(0);
+                    return;
                 default:
                     System.out.println("Opção inválida! Tente novamente.");
             }
