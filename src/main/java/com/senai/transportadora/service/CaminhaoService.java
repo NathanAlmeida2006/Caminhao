@@ -91,11 +91,11 @@ public class CaminhaoService {
     }
 
     private void preencherStatement(PreparedStatement stmt, Caminhao caminhao) throws SQLException {
-        stmt.setString(1, caminhao.getPlaca());
-        stmt.setString(2, caminhao.getModelo());
-        stmt.setString(3, caminhao.getCor());
-        stmt.setString(4, caminhao.getFabricante());
-        stmt.setString(5, caminhao.getNumeroChassis());
-        stmt.setDouble(6, caminhao.getCapacidadeCarga());
+        stmt.setString(1, caminhao.placa());
+        stmt.setString(2, caminhao.modelo());
+        stmt.setString(3, caminhao.cor());
+        stmt.setString(4, caminhao.fabricante());
+        stmt.setString(5, caminhao.numeroChassis());
+        stmt.setDouble(6, caminhao.capacidadeCarga());
     }
 }
