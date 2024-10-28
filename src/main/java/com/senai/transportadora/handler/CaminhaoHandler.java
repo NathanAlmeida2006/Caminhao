@@ -5,29 +5,25 @@ import com.senai.transportadora.controller.CaminhaoController;
 import com.senai.transportadora.entity.Caminhao;
 import com.senai.transportadora.util.HttpResponseUtil;
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Manipulador de requisições HTTP para operações relacionadas a caminhões.
- * <p>
- * Esta classe implementa o {@link HttpHandler} para lidar com requisições HTTP
- * de métodos como GET, POST, PUT e DELETE, utilizando o {@link CaminhaoController}.
- * </p>
+ * Classe responsável por manipular as requisições HTTP relacionadas a Caminhões.
+ * Implementa a interface RequestHandler e define os métodos para lidar com operações de CRUD.
  */
-public class CaminhaoHandler implements HttpHandler {
+public class CaminhaoHandler implements RequestHandler {
     private final CaminhaoController controller;
     private final Gson gson;
     private final HttpResponseUtil responseUtil;
 
     /**
-     * Construtor para inicializar o manipulador com o controlador, Gson e utilitário de resposta HTTP.
+     * Construtor para inicializar o handler de caminhões com o controlador, utilitário de resposta e a instância do Gson.
      *
-     * @param controller   o controlador de caminhão a ser utilizado
-     * @param gson         o objeto Gson para serialização/deserialização JSON
-     * @param responseUtil utilitário para enviar respostas HTTP
+     * @param controller O controlador responsável pelas operações de caminhões.
+     * @param gson A instância do Gson para serializar e desserializar JSON.
+     * @param responseUtil O utilitário de resposta HTTP para facilitar o envio de respostas.
      */
     public CaminhaoHandler(CaminhaoController controller, Gson gson, HttpResponseUtil responseUtil) {
         this.controller = controller;
@@ -36,13 +32,15 @@ public class CaminhaoHandler implements HttpHandler {
     }
 
     /**
-     * Manipula as requisições HTTP recebidas.
+     * Metodo para manipular requisições HTTP recebidas. Determina o metodo HTTP (GET, POST, PUT, DELETE)
+     * e chama o metodo correspondente. Também configura os cabeçalhos CORS.
      *
-     * @param exchange o objeto HttpExchange representando a requisição e resposta
-     * @throws IOException se ocorrer um erro de entrada/saída
+     * @param exchange O objeto HttpExchange que encapsula a requisição e a resposta.
+     * @throws IOException Se ocorrer um erro ao manipular a requisição.
      */
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        setupCorsHeaders(exchange);
 
         if (exchange.getRequestMethod().equals("OPTIONS")) {
             responseUtil.sendResponse(exchange, 204, "");
@@ -63,10 +61,10 @@ public class CaminhaoHandler implements HttpHandler {
     }
 
     /**
-     * Manipula requisições HTTP GET para listar caminhões.
+     * Manipula requisições HTTP GET para listar todos os caminhões.
      *
-     * @param exchange o objeto HttpExchange representando a requisição e resposta
-     * @throws IOException se ocorrer um erro de entrada/saída
+     * @param exchange O objeto HttpExchange para manipular a resposta HTTP.
+     * @throws IOException Se ocorrer um erro ao enviar a resposta.
      */
     private void handleGet(HttpExchange exchange) throws IOException {
         var caminhoes = controller.listarCaminhoes();
@@ -76,8 +74,8 @@ public class CaminhaoHandler implements HttpHandler {
     /**
      * Manipula requisições HTTP POST para adicionar um novo caminhão.
      *
-     * @param exchange o objeto HttpExchange representando a requisição e resposta
-     * @throws IOException se ocorrer um erro de entrada/saída
+     * @param exchange O objeto HttpExchange para manipular a resposta HTTP.
+     * @throws IOException Se ocorrer um erro ao enviar a resposta.
      */
     private void handlePost(HttpExchange exchange) throws IOException {
         var caminhao = gson.fromJson(new InputStreamReader(exchange.getRequestBody()), Caminhao.class);
@@ -88,8 +86,8 @@ public class CaminhaoHandler implements HttpHandler {
     /**
      * Manipula requisições HTTP PUT para atualizar um caminhão existente.
      *
-     * @param exchange o objeto HttpExchange representando a requisição e resposta
-     * @throws IOException se ocorrer um erro de entrada/saída
+     * @param exchange O objeto HttpExchange para manipular a resposta HTTP.
+     * @throws IOException Se ocorrer um erro ao enviar a resposta.
      */
     private void handlePut(HttpExchange exchange) throws IOException {
         var path = exchange.getRequestURI().getPath();
@@ -104,10 +102,10 @@ public class CaminhaoHandler implements HttpHandler {
     }
 
     /**
-     * Manipula requisições HTTP DELETE para remover um caminhão.
+     * Manipula requisições HTTP DELETE para remover um caminhão pelo ID.
      *
-     * @param exchange o objeto HttpExchange representando a requisição e resposta
-     * @throws IOException se ocorrer um erro de entrada/saída
+     * @param exchange O objeto HttpExchange para manipular a resposta HTTP.
+     * @throws IOException Se ocorrer um erro ao enviar a resposta.
      */
     private void handleDelete(HttpExchange exchange) throws IOException {
         var path = exchange.getRequestURI().getPath();
