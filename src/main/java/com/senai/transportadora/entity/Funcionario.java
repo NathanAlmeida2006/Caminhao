@@ -1,8 +1,5 @@
 package com.senai.transportadora.entity;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 /**
  * Representa um funcionário da transportadora.
  * <p>
@@ -25,10 +22,10 @@ public record Funcionario(
         String nome,
         String cpf,
         String rg,
-        LocalDate dataNascimento,
+        String dataNascimento,
         String cargo,
         String email,
         String telefone,
-        LocalDateTime dataCadastro
+        String dataCadastro
 ) {
 }

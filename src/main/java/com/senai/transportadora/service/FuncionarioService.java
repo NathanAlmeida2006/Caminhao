@@ -106,11 +106,11 @@ public class FuncionarioService {
                 rs.getString("nome"),
                 rs.getString("cpf"),
                 rs.getString("rg"),
-                rs.getDate("data_nascimento").toLocalDate(),
+                rs.getString("data_nascimento"),
                 rs.getString("cargo"),
                 rs.getString("email"),
                 rs.getString("telefone"),
-                rs.getTimestamp("data_cadastro").toLocalDateTime()
+                rs.getString("data_cadastro")
         );
     }
 
