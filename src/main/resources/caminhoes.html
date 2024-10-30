@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciamento de Caminhões</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+  <nav class="navigation">
+    <a href="index.html" class="back-button">← Voltar</a>
+    <h1>Gerenciamento de Caminhões</h1>
+  </nav>
+
+  <div class="form-container">
+    <h2>Adicionar/Editar Caminhão</h2>
+    <form id="caminhaoForm">
+      <input type="hidden" id="caminhaoId">
+      <div class="form-group">
+        <label for="placa">Placa:</label>
+        <input type="text" id="placa" required>
+      </div>
+      <div class="form-group">
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" required>
+      </div>
+      <div class="form-group">
+        <label for="cor">Cor:</label>
+        <input type="text" id="cor" required>
+      </div>
+      <div class="form-group">
+        <label for="fabricante">Fabricante:</label>
+        <input type="text" id="fabricante" required>
+      </div>
+      <div class="form-group">
+        <label for="numeroChassis">Número do Chassis:</label>
+        <input type="text" id="numeroChassis" required>
+      </div>
+      <div class="form-group">
+        <label for="capacidadeCarga">Capacidade de Carga (kg):</label>
+        <input type="number" id="capacidadeCarga" required>
+      </div>
+      <button type="submit">Salvar</button>
+    </form>
+  </div>
+
+  <div class="table-container">
+    <h2>Lista de Caminhões</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Placa</th>
+        <th>Modelo</th>
+        <th>Cor</th>
+        <th>Fabricante</th>
+        <th>Chassis</th>
+        <th>Capacidade</th>
+        <th>Ações</th>
+      </tr>
+      </thead>
+      <tbody id="caminhoesList">
+      </tbody>
+    </table>
+  </div>
+</div>
+<script src="caminhoes.js"></script>
+</body>
+</html>

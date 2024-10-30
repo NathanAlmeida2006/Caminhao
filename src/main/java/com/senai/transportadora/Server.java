@@ -3,10 +3,13 @@ package com.senai.transportadora;
 import com.google.gson.Gson;
 import com.senai.transportadora.controller.CaminhaoController;
 import com.senai.transportadora.controller.FuncionarioController;
+import com.senai.transportadora.controller.UsuarioController;
 import com.senai.transportadora.handler.CaminhaoHandler;
 import com.senai.transportadora.handler.FuncionarioHandler;
+import com.senai.transportadora.handler.UsuarioHandler;
 import com.senai.transportadora.service.CaminhaoService;
 import com.senai.transportadora.service.FuncionarioService;
+import com.senai.transportadora.service.UsuarioService;
 import com.senai.transportadora.util.HttpResponseUtil;
 import com.sun.net.httpserver.HttpServer;
 
@@ -39,11 +42,16 @@ public class Server {
         var funcionarioController = new FuncionarioController(funcionarioService);
         var funcionarioHandler = new FuncionarioHandler(funcionarioController, gson, responseUtil);
 
+        var usuarioService = new UsuarioService();
+        var usuarioController = new UsuarioController(usuarioService);
+        var usuarioHandler = new UsuarioHandler(usuarioController, gson, responseUtil);
+
         var server = HttpServer.create(new InetSocketAddress(PORT), 0);
 
         // Configura o contexto dos endpoints
         server.createContext("/api/caminhoes", caminhaoHandler);
         server.createContext("/api/funcionarios", funcionarioHandler);
+        server.createContext("/api/usuarios", usuarioHandler);
 
         server.setExecutor(null); // Usa o executor padrão
         server.start();
@@ -53,5 +61,6 @@ public class Server {
         System.out.println("Endpoints disponíveis:");
         System.out.println("- Caminhões: http://localhost:" + PORT + "/api/caminhoes");
         System.out.println("- Funcionários: http://localhost:" + PORT + "/api/funcionarios");
+        System.out.println("- Usuarios: http://localhost:" + PORT + "/api/usuarios");
     }
 }

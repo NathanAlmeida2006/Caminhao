@@ -1,51 +1,51 @@
 /**
- * Classe que gerencia as requisições HTTP relacionadas a caminhões.
+ * Classe que gerencia as requisições HTTP relacionadas a usuários.
  * Extends AbstractRequestHandler e delega as operações específicas para handlers especializados.
  */
 package com.senai.transportadora.handler;
 
 import com.google.gson.Gson;
-import com.senai.transportadora.controller.CaminhaoController;
-import com.senai.transportadora.handler.caminhao.*;
+import com.senai.transportadora.controller.UsuarioController;
+import com.senai.transportadora.handler.usuario.*;
 import com.senai.transportadora.util.HttpResponseUtil;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
 
-public class CaminhaoHandler extends AbstractRequestHandler {
+public class UsuarioHandler extends AbstractRequestHandler {
     /**
-     * Handler responsável por processar requisições GET de caminhões.
+     * Handler responsável por processar requisições GET de usuários.
      */
-    private final CaminhaoGetHandler getHandler;
+    private final UsuarioGetHandler getHandler;
 
     /**
-     * Handler responsável por processar requisições POST de caminhões.
+     * Handler responsável por processar requisições POST de usuários.
      */
-    private final CaminhaoPostHandler postHandler;
+    private final UsuarioPostHandler postHandler;
 
     /**
-     * Handler responsável por processar requisições PUT de caminhões.
+     * Handler responsável por processar requisições PUT de usuários.
      */
-    private final CaminhaoPutHandler putHandler;
+    private final UsuarioPutHandler putHandler;
 
     /**
-     * Handler responsável por processar requisições DELETE de caminhões.
+     * Handler responsável por processar requisições DELETE de usuários.
      */
-    private final CaminhaoDeleteHandler deleteHandler;
+    private final UsuarioDeleteHandler deleteHandler;
 
     /**
      * Construtor que inicializa todos os handlers específicos para cada tipo de requisição.
      *
-     * @param controller   O controlador que contém a lógica de negócio para operações com caminhões
+     * @param controller   O controlador que contém a lógica de negócio para operações com usuários
      * @param gson         Objeto Gson para serialização/deserialização JSON
      * @param responseUtil Utilitário para gerenciar respostas HTTP
      */
-    public CaminhaoHandler(CaminhaoController controller, Gson gson, HttpResponseUtil responseUtil) {
+    public UsuarioHandler(UsuarioController controller, Gson gson, HttpResponseUtil responseUtil) {
         super(responseUtil);
-        this.getHandler = new CaminhaoGetHandler(controller, gson, responseUtil);
-        this.postHandler = new CaminhaoPostHandler(controller, gson, responseUtil);
-        this.putHandler = new CaminhaoPutHandler(controller, gson, responseUtil);
-        this.deleteHandler = new CaminhaoDeleteHandler(controller, responseUtil);
+        this.getHandler = new UsuarioGetHandler(controller, gson, responseUtil);
+        this.postHandler = new UsuarioPostHandler(controller, gson, responseUtil);
+        this.putHandler = new UsuarioPutHandler(controller, gson, responseUtil);
+        this.deleteHandler = new UsuarioDeleteHandler(controller, responseUtil);
     }
 
     /**
