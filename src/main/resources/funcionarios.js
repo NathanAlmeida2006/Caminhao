@@ -1,12 +1,12 @@
-import { API_URLS } from './config.js';
+const API_URL = 'http://localhost:8081/api/funcionarios';
 
 const getFuncionarios = async () => {
-    const response = await fetch(API_URLS.funcionarios);
+    const response = await fetch(API_URL);
     return await response.json();
 };
 
 const addFuncionario = async (funcionario) => {
-    const response = await fetch(API_URLS.funcionarios, {
+    const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

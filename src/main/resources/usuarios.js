@@ -1,7 +1,7 @@
-import { API_URLS } from './config.js';
+const API_URL = 'http://localhost:8081/api/usuarios';
 
 const getUsuarios = async () => {
-    const response = await fetch(API_URLS.usuarios);
+    const response = await fetch(API_URL);
     return await response.json();
 };
 

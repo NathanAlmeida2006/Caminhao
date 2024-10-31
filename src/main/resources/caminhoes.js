@@ -1,12 +1,12 @@
-import { API_URLS } from './config.js';
+const API_URL = 'http://localhost:8081/api/caminhoes';
 
 const getCaminhoes = async () => {
-    const response = await fetch(API_URLS.caminhoes);
+    const response = await fetch(API_URL);
     return await response.json();
 };
 
 const addCaminhao = async (caminhao) => {
-    const response = await fetch(API_URLS.caminhoes, {
+    const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
