@@ -34,6 +34,11 @@ public class UsuarioHandler extends AbstractRequestHandler {
     private final UsuarioDeleteHandler deleteHandler;
 
     /**
+     * Handler responsável por processar requisições de login.
+     */
+    private final UsuarioLoginHandler loginHandler;
+
+    /**
      * Construtor que inicializa todos os handlers específicos para cada tipo de requisição.
      *
      * @param controller   O controlador que contém a lógica de negócio para operações com usuários
@@ -46,6 +51,7 @@ public class UsuarioHandler extends AbstractRequestHandler {
         this.postHandler = new UsuarioPostHandler(controller, gson, responseUtil);
         this.putHandler = new UsuarioPutHandler(controller, gson, responseUtil);
         this.deleteHandler = new UsuarioDeleteHandler(controller, responseUtil);
+        this.loginHandler = new UsuarioLoginHandler(controller, gson, responseUtil);
     }
 
     /**
@@ -61,12 +67,18 @@ public class UsuarioHandler extends AbstractRequestHandler {
 
     /**
      * Processa requisições HTTP POST delegando para o handler específico.
+     * Se o caminho terminar com "/login", delega para o loginHandler.
      *
      * @param exchange O objeto HttpExchange contendo a requisição e resposta
      * @throws IOException Se ocorrer um erro durante o processamento da requisição
      */
     @Override
     protected void handlePost(HttpExchange exchange) throws IOException {
+        var path = exchange.getRequestURI().getPath();
+        if (path.endsWith("/login")) {
+            loginHandler.handleLogin(exchange);
+            return;
+        }
         postHandler.handlePost(exchange);
     }
 
